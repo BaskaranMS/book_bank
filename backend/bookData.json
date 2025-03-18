@@ -1,0 +1,182 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year": 1925,
+    "description": "A novel about the American Dream and the roaring twenties.",
+    "genre": "Fiction",
+    "image_url": "http://localhost:8000/public/images/1.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "year": 1960,
+    "description": "A novel about racial injustice and childhood innocence in the Deep South.",
+    "genre": "Classic",
+    "image_url": "http://localhost:8000/public/images/2.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "year": 1949,
+    "description": "A dystopian novel about totalitarian government surveillance and control.",
+    "genre": "Dystopian",
+    "image_url": "http://localhost:8000/public/images/3.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "year": 1813,
+    "description": "A romantic novel about manners and marriage in early 19th-century England.",
+    "genre": "Romance",
+    "image_url": "http://localhost:8000/public/images/4.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Moby-Dick",
+    "author": "Herman Melville",
+    "year": 1851,
+    "description": "The narrative of Captain Ahab's obsessive quest to seek revenge on the white whale.",
+    "genre": "Adventure",
+    "image_url": "http://localhost:8000/public/images/5.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "year": 1951,
+    "description": "A novel about teenage alienation and the struggle of growing up.",
+    "genre": "Coming-of-Age",
+    "image_url": "http://localhost:8000/public/images/6.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien",
+    "year": 1954,
+    "description": "An epic fantasy novel about the quest to destroy the One Ring.",
+    "genre": "Fantasy",
+    "image_url": "http://localhost:8000/public/images/7.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "year": 1997,
+    "description": "The first book in the Harry Potter series, following a young wizard's adventures.",
+    "genre": "Fantasy",
+    "image_url": "http://localhost:8000/public/images/8.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "year": 1937,
+    "description": "A fantasy novel about Bilbo Baggins' journey to reclaim a stolen treasure.",
+    "genre": "Fantasy",
+    "image_url": "http://localhost:8000/public/images/9.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "year": 1932,
+    "description": "A dystopian novel about a future society driven by technological advancements.",
+    "genre": "Dystopian",
+    "image_url": "http://localhost:8000/public/images/10.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Fahrenheit 451",
+    "author": "Ray Bradbury",
+    "year": 1953,
+    "description": "A dystopian novel about a society where books are banned and burned.",
+    "genre": "Dystopian",
+    "image_url": "http://localhost:8000/public/images/11.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "year": 1866,
+    "description": "A psychological novel exploring morality, guilt, and redemption.",
+    "genre": "Classic",
+    "image_url": "http://localhost:8000/public/images/12.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "year": 1890,
+    "description": "A philosophical novel about vanity and the consequences of corruption.",
+    "genre": "Gothic Fiction",
+    "image_url": "http://localhost:8000/public/images/13.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "year": 1818,
+    "description": "A Gothic novel about the dangers of unrestrained scientific ambition.",
+    "genre": "Horror",
+    "image_url": "http://localhost:8000/public/images/14.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "year": 1988,
+    "description": "A novel about a shepherd's journey in search of his personal legend.",
+    "genre": "Fiction",
+    "image_url": "http://localhost:8000/public/images/15.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Brontë",
+    "year": 1847,
+    "description": "A classic novel about love, revenge, and social status.",
+    "genre": "Classic",
+    "image_url": "http://localhost:8000/public/images/16.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "year": 1897,
+    "description": "A Gothic horror novel about the legendary vampire Count Dracula.",
+    "genre": "Horror",
+    "image_url": "http://localhost:8000/public/images/17.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "The Grapes of Wrath",
+    "author": "John Steinbeck",
+    "year": 1939,
+    "description": "A novel about a family's struggle during the Great Depression.",
+    "genre": "Historical Fiction",
+    "image_url": "http://localhost:8000/public/images/18.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "year": 1847,
+    "description": "A novel about a woman's struggle for independence and love.",
+    "genre": "Classic",
+    "image_url": "http://localhost:8000/public/images/19.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  },
+  {
+    "title": "Les Misérables",
+    "author": "Victor Hugo",
+    "year": 1862,
+    "description": "A novel about justice, redemption, and love in post-revolutionary France.",
+    "genre": "Historical Fiction",
+    "image_url": "http://localhost:8000/public/images/20.jpeg",
+    "pdf_url": "http://localhost:8000/public/pdfs/sample.pdf"
+  }
+]
