@@ -20,6 +20,7 @@ const {
   getNestedComments,
   likeComment,
 } = require("../controller/comments.js");
+const Book = require("../models/books.js");
 
 router
   .route("/")
@@ -70,5 +71,24 @@ router
   .get(wrapAsync(getNestedComments))
   .post(authorization, wrapAsync(createNestedComment))
   .delete(authorization, wrapAsync(deleteComment));
+
+router.post("/offer", async (req, res) => {
+  try {
+    const { offer } = req.body;
+
+    if (!offer || isNaN(offer)) {
+      return res.status(400).json({ message: "Invalid offer value" });
+    }
+
+    await Book.updateMany({}, { $set: { discount: offer } });
+
+    res
+      .status(200)
+      .json({ message: `Global offer of ₹${offer} applied to all books.` });
+  } catch (err) {
+    console.error("Error applying global offer:", err);
+    res.status(500).json({ message: "Failed to apply global offer" });
+  }
+});
 
 module.exports = router;

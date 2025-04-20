@@ -21,6 +21,14 @@ const bookSchema = new mongoose.Schema({
   pdf_url: {
     type: String,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
+  discount: {
+    type: String,
+    default: "0",
+  },
   genre: {
     type: [String],
     required: true,

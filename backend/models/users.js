@@ -57,6 +57,12 @@ const userSchema = new Schema({
       ref: "Book",
     },
   ],
+  purchasedBooks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Book",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

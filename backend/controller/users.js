@@ -18,6 +18,7 @@ module.exports.signup = async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: hashedPassword,
+    purchasedBooks: [],
   });
 
   await newUser.save();

@@ -28,6 +28,26 @@ mongoose
   })
   .catch((e) => console.log("Error Connecting to Database", e));
 
+// mongoose.connection.once("open", async () => {
+//   console.log("Connected to MongoDB.");
+
+//   try {
+//     const books = await Book.find();
+
+//     for (const book of books) {
+//       book.price = Math.floor(Math.random() * 46) + 5; // random price between 5 and 50
+//       book.discount = "10%";
+//       await book.save();
+//     }
+
+//     console.log("All books updated with price and discount.");
+//   } catch (error) {
+//     console.error("Error updating books:", error);
+//   } finally {
+//     mongoose.connection.close();
+//   }
+// });
+
 const path = require("path");
 const wrapAsync = require("./utils/wrapAsync");
 const Visitor = require("./models/visits");

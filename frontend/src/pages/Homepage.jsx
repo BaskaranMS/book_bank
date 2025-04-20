@@ -1,5 +1,5 @@
 import { LayoutGrid, Loader2, PlusCircle, Table } from "lucide-react";
-import { lazy, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataTable } from "@/components/DataTable";
 import { bookColumns } from "@/components/bookColumns";
@@ -10,6 +10,8 @@ import useBooks from "@/hooks/useBooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userRoleAtom } from "@/atoms/userData";
 import { pageTitleAtom } from "@/atoms/meta";
+import { toast } from "sonner";
+import axios from "axios";
 
 const Homepage = () => {
   const role = useRecoilValue(userRoleAtom);
@@ -17,6 +19,32 @@ const Homepage = () => {
   const { books, isLoading } = useBooks();
   const setPageTitle = useSetRecoilState(pageTitleAtom);
   useEffect(() => setPageTitle("The Book Bank"), []);
+
+  const [globalOffer, setGlobalOffer] = useState("");
+  const [isSubmittingOffer, setIsSubmittingOffer] = useState(false);
+
+  const handleGlobalOfferSubmit = async () => {
+    if (!globalOffer || isNaN(globalOffer)) return toast.error("Invalid offer");
+
+    setIsSubmittingOffer(true);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/books/offer`,
+        { offer: globalOffer },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setGlobalOffer("");
+      toast.success(response.data.message || "Global offer applied!");
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to apply offer");
+    } finally {
+      setIsSubmittingOffer(false);
+    }
+  };
 
   return (
     <main className="grid flex-1 items-start p-2 sm:px-4 md:gap-8">
@@ -42,6 +70,29 @@ const Homepage = () => {
               >
                 <PlusCircle size={20} />
                 Add Book
+              </Button>
+            </div>
+          )}
+
+          {role === "admin" && (
+            <div className="flex gap-2 items-center">
+              <input
+                type="number"
+                placeholder="Global Offer Price"
+                className="border rounded px-2 py-1 w-40 text-black"
+                value={globalOffer}
+                onChange={(e) => setGlobalOffer(e.target.value)}
+              />
+              <Button
+                size="sm"
+                onClick={handleGlobalOfferSubmit}
+                disabled={isSubmittingOffer}
+              >
+                {isSubmittingOffer ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  "Apply Offer"
+                )}
               </Button>
             </div>
           )}

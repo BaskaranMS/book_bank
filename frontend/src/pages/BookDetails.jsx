@@ -31,6 +31,21 @@ import { toast } from "sonner";
 const ReviewList = lazy(() => import("@/components/ReviewList"));
 const ReviewForm = lazy(() => import("@/components/ReviewForm"));
 
+// Load Razorpay script dynamically
+const loadRazorpay = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => {
+      resolve(true);
+    };
+    script.onerror = () => {
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
 const BookDetails = () => {
   const setPageTitle = useSetRecoilState(pageTitleAtom);
   const userAvatar = useRecoilValue(userAvatarSelector);
@@ -47,10 +62,15 @@ const BookDetails = () => {
   const [myReview, setMyReview] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [hasPaid, setHasPaid] = useState(false);
+  const [isRazorpayLoading, setIsRazorpayLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setisLiked(userFavouriteBooks.includes(book?._id));
+    if (role === "admin") {
+      setHasPaid(true);
+    }
   }, [book, userFavouriteBooks]);
 
   useEffect(() => {
@@ -73,6 +93,95 @@ const BookDetails = () => {
           console.log(err);
         });
   }, [isLoggedIn, book, counter]);
+
+  const handlePayment = async () => {
+    setIsRazorpayLoading(true);
+
+    try {
+      // Load Razorpay script
+      const razorpayLoaded = await loadRazorpay();
+      if (!razorpayLoaded) {
+        toast.error("Failed to load payment gateway");
+        return;
+      }
+
+      // Create order (in a real app, this should be done on your backend)
+      // const orderResponse = await axios.post(
+      //   `${import.meta.env.VITE_BACKEND_URL}/create-order`,
+      //   {
+      //     amount: Math.round(
+      //       book.price * (1 - parseFloat(book.discount) / 100) * 100
+      //     ), // amount in paise
+      //     currency: "INR",
+      //     receipt: `order_${book._id}_${Date.now()}`,
+      //   },
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //     },
+      //   }
+      // );
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: Math.round(
+          book.price * (1 - parseFloat(book.discount) / 100) * 100
+        ),
+        currency: "INR",
+        name: "Book Store",
+        description: `Payment for ${book.title}`,
+        image: "https://example.com/your_logo.jpg",
+        handler: function (response) {
+          toast.success("Payment successful! You can now download the book.");
+          setHasPaid(true);
+
+          // In a real app, verify payment on your backend
+          // axios.post(
+          //   `${import.meta.env.VITE_BACKEND_URL}/verify-payment`,
+          //   {
+          //     orderId: orderResponse.data.id,
+          //     paymentId: response.razorpay_payment_id,
+          //     signature: response.razorpay_signature,
+          //     bookId: book._id,
+          //   },
+          //   {
+          //     headers: {
+          //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+          //     },
+          //   }
+          // );
+        },
+        prefill: {
+          name: "Customer Name", // You can get this from user data
+          email: "customer@example.com", // You can get this from user data
+          contact: "9999999999",
+        },
+        notes: {
+          address: "Book Store Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Payment failed");
+    } finally {
+      setIsRazorpayLoading(false);
+    }
+  };
+
+  // For testing purposes - simplified payment handler
+  const handleTestPayment = () => {
+    setIsRazorpayLoading(true);
+    setTimeout(() => {
+      toast.success("Test payment successful! You can now download the book.");
+      setHasPaid(true);
+      setIsRazorpayLoading(false);
+    }, 1500);
+  };
 
   const toggleFavorite = async () => {
     if (isLoggedIn) {
@@ -161,22 +270,59 @@ const BookDetails = () => {
                 </blockquote>
               </div>
             )}
+            <div className="flex items-center space-x-3 mt-4">
+              <h3 className="text-xl font-semibold">Price:</h3>
+              <span className="text-lg line-through text-red-400">
+                ₹{book?.price}
+              </span>
+              <span className="text-lg text-green-600">
+                ₹
+                {(book?.price * (1 - parseFloat(book?.discount) / 100)).toFixed(
+                  2
+                )}
+              </span>
+              <Badge className="bg-green-200 text-green-800">
+                {book?.discount} OFF
+              </Badge>
+            </div>
+
             {book?.pdf_url && (
               <div className="flex justify-start mt-4">
-                <Button
-                  asChild
-                  variant="outline"
-                  className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                >
-                  <a
-                    href={book.pdf_url}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
+                {role === "admin" || hasPaid ? (
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
                   >
-                    Download PDF
-                  </a>
-                </Button>
+                    <a
+                      href={book.pdf_url}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download PDF
+                    </a>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    className="border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white"
+                    onClick={handlePayment} // Use handlePayment in production
+                    disabled={isRazorpayLoading}
+                  >
+                    {isRazorpayLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      `Pay ₹${(
+                        book?.price *
+                        (1 - parseFloat(book?.discount) / 100)
+                      ).toFixed(2)} to Download`
+                    )}
+                  </Button>
+                )}
               </div>
             )}
           </div>
